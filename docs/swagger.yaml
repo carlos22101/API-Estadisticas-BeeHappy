@@ -1,0 +1,335 @@
+basePath: /api/v1
+definitions:
+  domain.EstadisticasAnio:
+    properties:
+      ano:
+        type: integer
+      cantidad_lecturas:
+        type: integer
+      fecha_calculo:
+        type: string
+      fecha_fin:
+        type: string
+      fecha_inicio:
+        type: string
+      id:
+        type: integer
+      id_colmena:
+        description: CAMPO AÑADIDO
+        type: integer
+      id_sensor:
+        type: integer
+      valor_maximo:
+        type: number
+      valor_minimo:
+        type: number
+      valor_promedio:
+        type: number
+    type: object
+  domain.EstadisticasDia:
+    properties:
+      cantidad_lecturas:
+        type: integer
+      fecha:
+        type: string
+      fecha_calculo:
+        type: string
+      id:
+        type: integer
+      id_colmena:
+        description: CAMPO AÑADIDO
+        type: integer
+      id_sensor:
+        type: integer
+      valor_maximo:
+        type: number
+      valor_minimo:
+        type: number
+      valor_promedio:
+        type: number
+    type: object
+  domain.EstadisticasMes:
+    properties:
+      ano_mes:
+        type: string
+      cantidad_lecturas:
+        type: integer
+      fecha_calculo:
+        type: string
+      fecha_fin:
+        type: string
+      fecha_inicio:
+        type: string
+      id:
+        type: integer
+      id_colmena:
+        description: CAMPO AÑADIDO
+        type: integer
+      id_sensor:
+        type: integer
+      valor_maximo:
+        type: number
+      valor_minimo:
+        type: number
+      valor_promedio:
+        type: number
+    type: object
+  domain.EstadisticasSemana:
+    properties:
+      ano_semana:
+        type: string
+      cantidad_lecturas:
+        type: integer
+      fecha_calculo:
+        type: string
+      fecha_fin:
+        type: string
+      fecha_inicio:
+        type: string
+      id:
+        type: integer
+      id_colmena:
+        description: CAMPO AÑADIDO
+        type: integer
+      id_sensor:
+        type: integer
+      valor_maximo:
+        type: number
+      valor_minimo:
+        type: number
+      valor_promedio:
+        type: number
+    type: object
+  response.ErrorResponse:
+    properties:
+      message:
+        example: Error obteniendo estadísticas
+        type: string
+      status:
+        example: error
+        type: string
+      timestamp:
+        example: "2025-07-07T12:30:00Z"
+        type: string
+      version:
+        example: v1.0
+        type: string
+    type: object
+  response.SuccessResponse:
+    properties:
+      data: {}
+      status:
+        example: success
+        type: string
+      timestamp:
+        example: "2025-07-07T12:30:00Z"
+        type: string
+      version:
+        example: v1.0
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: api@beehappy.com
+    name: Equipo BeeHappy
+    url: https://beehappy.com
+  description: |-
+    API para consultar estadísticas de colmenas inteligentes BeeHappy
+    Esta API proporciona acceso a datos estadísticos agregados de sensores de colmenas
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: https://beehappy.com/terms
+  title: BeeHappy Estadísticas API
+  version: "1.0"
+paths:
+  /estadisticas/anio:
+    get:
+      consumes:
+      - application/json
+      description: Retorna las estadísticas calculadas por año para las colmenas y
+        sensores especificados
+      parameters:
+      - description: ID del sensor para filtrar las estadísticas
+        example: 1
+        in: query
+        minimum: 1
+        name: sensor_id
+        type: integer
+      - description: ID de la colmena para filtrar las estadísticas
+        example: 1
+        in: query
+        minimum: 1
+        name: colmena_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Estadísticas anuales obtenidas exitosamente
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.SuccessResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/domain.EstadisticasAnio'
+                  type: array
+              type: object
+        "400":
+          description: Parámetros de consulta inválidos
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Obtener estadísticas anuales
+      tags:
+      - Estadísticas Anuales
+  /estadisticas/dia:
+    get:
+      consumes:
+      - application/json
+      description: Retorna las estadísticas calculadas por día para las colmenas y
+        sensores especificados
+      parameters:
+      - description: ID del sensor para filtrar las estadísticas
+        example: 1
+        in: query
+        minimum: 1
+        name: sensor_id
+        type: integer
+      - description: ID de la colmena para filtrar las estadísticas
+        example: 1
+        in: query
+        minimum: 1
+        name: colmena_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Estadísticas diarias obtenidas exitosamente
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.SuccessResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/domain.EstadisticasDia'
+                  type: array
+              type: object
+        "400":
+          description: Parámetros de consulta inválidos
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Obtener estadísticas diarias
+      tags:
+      - Estadísticas Diarias
+  /estadisticas/mes:
+    get:
+      consumes:
+      - application/json
+      description: Retorna las estadísticas calculadas por mes para las colmenas y
+        sensores especificados
+      parameters:
+      - description: ID del sensor para filtrar las estadísticas
+        example: 1
+        in: query
+        minimum: 1
+        name: sensor_id
+        type: integer
+      - description: ID de la colmena para filtrar las estadísticas
+        example: 1
+        in: query
+        minimum: 1
+        name: colmena_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Estadísticas mensuales obtenidas exitosamente
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.SuccessResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/domain.EstadisticasMes'
+                  type: array
+              type: object
+        "400":
+          description: Parámetros de consulta inválidos
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Obtener estadísticas mensuales
+      tags:
+      - Estadísticas Mensuales
+  /estadisticas/semana:
+    get:
+      consumes:
+      - application/json
+      description: Retorna las estadísticas calculadas por semana para las colmenas
+        y sensores especificados
+      parameters:
+      - description: ID del sensor para filtrar las estadísticas
+        example: 1
+        in: query
+        minimum: 1
+        name: sensor_id
+        type: integer
+      - description: ID de la colmena para filtrar las estadísticas
+        example: 1
+        in: query
+        minimum: 1
+        name: colmena_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Estadísticas semanales obtenidas exitosamente
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.SuccessResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/domain.EstadisticasSemana'
+                  type: array
+              type: object
+        "400":
+          description: Parámetros de consulta inválidos
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Error interno del servidor
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Obtener estadísticas semanales
+      tags:
+      - Estadísticas Semanales
+schemes:
+- http
+- https
+swagger: "2.0"
+tags:
+- description: Operaciones relacionadas con estadísticas calculadas por día
+  name: Estadísticas Diarias
+- description: Operaciones relacionadas con estadísticas calculadas por semana
+  name: Estadísticas Semanales
+- description: Operaciones relacionadas con estadísticas calculadas por mes
+  name: Estadísticas Mensuales
+- description: Operaciones relacionadas con estadísticas calculadas por año
+  name: Estadísticas Anuales

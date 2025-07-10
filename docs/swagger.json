@@ -1,0 +1,507 @@
+{
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "API para consultar estadísticas de colmenas inteligentes BeeHappy\nEsta API proporciona acceso a datos estadísticos agregados de sensores de colmenas",
+        "title": "BeeHappy Estadísticas API",
+        "termsOfService": "https://beehappy.com/terms",
+        "contact": {
+            "name": "Equipo BeeHappy",
+            "url": "https://beehappy.com",
+            "email": "api@beehappy.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/estadisticas/anio": {
+            "get": {
+                "description": "Retorna las estadísticas calculadas por año para las colmenas y sensores especificados",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Estadísticas Anuales"
+                ],
+                "summary": "Obtener estadísticas anuales",
+                "parameters": [
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "example": 1,
+                        "description": "ID del sensor para filtrar las estadísticas",
+                        "name": "sensor_id",
+                        "in": "query"
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "example": 1,
+                        "description": "ID de la colmena para filtrar las estadísticas",
+                        "name": "colmena_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Estadísticas anuales obtenidas exitosamente",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.SuccessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/domain.EstadisticasAnio"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Parámetros de consulta inválidos",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/estadisticas/dia": {
+            "get": {
+                "description": "Retorna las estadísticas calculadas por día para las colmenas y sensores especificados",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Estadísticas Diarias"
+                ],
+                "summary": "Obtener estadísticas diarias",
+                "parameters": [
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "example": 1,
+                        "description": "ID del sensor para filtrar las estadísticas",
+                        "name": "sensor_id",
+                        "in": "query"
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "example": 1,
+                        "description": "ID de la colmena para filtrar las estadísticas",
+                        "name": "colmena_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Estadísticas diarias obtenidas exitosamente",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.SuccessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/domain.EstadisticasDia"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Parámetros de consulta inválidos",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/estadisticas/mes": {
+            "get": {
+                "description": "Retorna las estadísticas calculadas por mes para las colmenas y sensores especificados",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Estadísticas Mensuales"
+                ],
+                "summary": "Obtener estadísticas mensuales",
+                "parameters": [
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "example": 1,
+                        "description": "ID del sensor para filtrar las estadísticas",
+                        "name": "sensor_id",
+                        "in": "query"
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "example": 1,
+                        "description": "ID de la colmena para filtrar las estadísticas",
+                        "name": "colmena_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Estadísticas mensuales obtenidas exitosamente",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.SuccessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/domain.EstadisticasMes"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Parámetros de consulta inválidos",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/estadisticas/semana": {
+            "get": {
+                "description": "Retorna las estadísticas calculadas por semana para las colmenas y sensores especificados",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Estadísticas Semanales"
+                ],
+                "summary": "Obtener estadísticas semanales",
+                "parameters": [
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "example": 1,
+                        "description": "ID del sensor para filtrar las estadísticas",
+                        "name": "sensor_id",
+                        "in": "query"
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "example": 1,
+                        "description": "ID de la colmena para filtrar las estadísticas",
+                        "name": "colmena_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Estadísticas semanales obtenidas exitosamente",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.SuccessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/domain.EstadisticasSemana"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Parámetros de consulta inválidos",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domain.EstadisticasAnio": {
+            "type": "object",
+            "properties": {
+                "ano": {
+                    "type": "integer"
+                },
+                "cantidad_lecturas": {
+                    "type": "integer"
+                },
+                "fecha_calculo": {
+                    "type": "string"
+                },
+                "fecha_fin": {
+                    "type": "string"
+                },
+                "fecha_inicio": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "id_colmena": {
+                    "description": "CAMPO AÑADIDO",
+                    "type": "integer"
+                },
+                "id_sensor": {
+                    "type": "integer"
+                },
+                "valor_maximo": {
+                    "type": "number"
+                },
+                "valor_minimo": {
+                    "type": "number"
+                },
+                "valor_promedio": {
+                    "type": "number"
+                }
+            }
+        },
+        "domain.EstadisticasDia": {
+            "type": "object",
+            "properties": {
+                "cantidad_lecturas": {
+                    "type": "integer"
+                },
+                "fecha": {
+                    "type": "string"
+                },
+                "fecha_calculo": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "id_colmena": {
+                    "description": "CAMPO AÑADIDO",
+                    "type": "integer"
+                },
+                "id_sensor": {
+                    "type": "integer"
+                },
+                "valor_maximo": {
+                    "type": "number"
+                },
+                "valor_minimo": {
+                    "type": "number"
+                },
+                "valor_promedio": {
+                    "type": "number"
+                }
+            }
+        },
+        "domain.EstadisticasMes": {
+            "type": "object",
+            "properties": {
+                "ano_mes": {
+                    "type": "string"
+                },
+                "cantidad_lecturas": {
+                    "type": "integer"
+                },
+                "fecha_calculo": {
+                    "type": "string"
+                },
+                "fecha_fin": {
+                    "type": "string"
+                },
+                "fecha_inicio": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "id_colmena": {
+                    "description": "CAMPO AÑADIDO",
+                    "type": "integer"
+                },
+                "id_sensor": {
+                    "type": "integer"
+                },
+                "valor_maximo": {
+                    "type": "number"
+                },
+                "valor_minimo": {
+                    "type": "number"
+                },
+                "valor_promedio": {
+                    "type": "number"
+                }
+            }
+        },
+        "domain.EstadisticasSemana": {
+            "type": "object",
+            "properties": {
+                "ano_semana": {
+                    "type": "string"
+                },
+                "cantidad_lecturas": {
+                    "type": "integer"
+                },
+                "fecha_calculo": {
+                    "type": "string"
+                },
+                "fecha_fin": {
+                    "type": "string"
+                },
+                "fecha_inicio": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "id_colmena": {
+                    "description": "CAMPO AÑADIDO",
+                    "type": "integer"
+                },
+                "id_sensor": {
+                    "type": "integer"
+                },
+                "valor_maximo": {
+                    "type": "number"
+                },
+                "valor_minimo": {
+                    "type": "number"
+                },
+                "valor_promedio": {
+                    "type": "number"
+                }
+            }
+        },
+        "response.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Error obteniendo estadísticas"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "error"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "example": "2025-07-07T12:30:00Z"
+                },
+                "version": {
+                    "type": "string",
+                    "example": "v1.0"
+                }
+            }
+        },
+        "response.SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "example": "2025-07-07T12:30:00Z"
+                },
+                "version": {
+                    "type": "string",
+                    "example": "v1.0"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "description": "Operaciones relacionadas con estadísticas calculadas por día",
+            "name": "Estadísticas Diarias"
+        },
+        {
+            "description": "Operaciones relacionadas con estadísticas calculadas por semana",
+            "name": "Estadísticas Semanales"
+        },
+        {
+            "description": "Operaciones relacionadas con estadísticas calculadas por mes",
+            "name": "Estadísticas Mensuales"
+        },
+        {
+            "description": "Operaciones relacionadas con estadísticas calculadas por año",
+            "name": "Estadísticas Anuales"
+        }
+    ]
+}
