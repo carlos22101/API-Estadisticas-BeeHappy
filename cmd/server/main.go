@@ -12,8 +12,8 @@ import (
 	"estadisticas-api/internal/estadisticas/infrastructure/http/routes"
 	sharedDB "estadisticas-api/internal/shared/database"
 
-	// ✨ SWAGGER IMPORTS
-	_ "estadisticas-api/docs" // Importar documentación generada
+	
+	_ "estadisticas-api/docs" 
 	
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -51,34 +51,34 @@ import (
 // @tag.description Operaciones relacionadas con estadísticas calculadas por año
 
 func main() {
-	// Cargar variables de entorno
+	
 	if err := godotenv.Load(); err != nil {
 		log.Println("No se pudo cargar el archivo .env")
 	}
 
-	// Configurar base de datos
+	
 	db, err := sharedDB.NewConnection(configs.GetDatabaseConfig())
 	if err != nil {
 		log.Fatal("Error conectando a la base de datos:", err)
 	}
 	defer db.Close()
 
-	// Verificar conexión
+	
 	if err := db.Ping(); err != nil {
 		log.Fatal("Error verificando conexión a la base de datos:", err)
 	}
 	log.Println("✅ Conexión a base de datos establecida correctamente")
 
-	// Inicializar repositorio
+	
 	estadisticasRepo := estadisticasdb.NewMySQLRepository(db)
 
-	// Inicializar casos de uso
+	
 	getDiaUseCase := usecases.NewGetEstadisticasDiaUseCase(estadisticasRepo)
 	getSemanaUseCase := usecases.NewGetEstadisticasSemanaUseCase(estadisticasRepo)
 	getMesUseCase := usecases.NewGetEstadisticasMesUseCase(estadisticasRepo)
 	getAnioUseCase := usecases.NewGetEstadisticasAnioUseCase(estadisticasRepo)
 
-	// Inicializar handlers
+	
 	estadisticasHandler := handlers.NewEstadisticasHandler(
 		getDiaUseCase,
 		getSemanaUseCase,
@@ -86,25 +86,25 @@ func main() {
 		getAnioUseCase,
 	)
 
-	// Configurar servidor
+	
 	router := gin.Default()
 
-	// Aplicar middleware CORS
+	
 	router.Use(middleware.CORSMiddleware())
 
-	// ✨ CONFIGURAR SWAGGER
+	
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	// Configurar rutas
+	
 	routes.SetupEstadisticasRoutes(router, estadisticasHandler)
 
-	// Información de configuración
+	
 	dbConfig := configs.GetDatabaseConfig()
 	log.Printf("🐝 API BeeHappy - Estadísticas")
 	log.Printf("📊 Base de datos: %s", dbConfig.Database)
 	log.Printf("🔗 Host: %s:%s", dbConfig.Host, dbConfig.Port)
 
-	// Iniciar servidor
+	
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"

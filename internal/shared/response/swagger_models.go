@@ -4,7 +4,7 @@ import (
 	"estadisticas-api/internal/estadisticas/domain"
 )
 
-// SuccessResponse modelo base para respuestas exitosas
+
 type SuccessResponse struct {
 	Status    string      `json:"status" example:"success"`
 	Data      interface{} `json:"data"`
@@ -12,7 +12,7 @@ type SuccessResponse struct {
 	Version   string      `json:"version,omitempty" example:"v1.0"`
 }
 
-// ErrorResponse modelo para respuestas de error
+
 type ErrorResponse struct {
 	Status    string `json:"status" example:"error"`
 	Message   string `json:"message" example:"Error obteniendo estadísticas"`
@@ -20,7 +20,7 @@ type ErrorResponse struct {
 	Version   string `json:"version,omitempty" example:"v1.0"`
 }
 
-// EstadisticasDiaResponse respuesta específica para estadísticas diarias
+
 type EstadisticasDiaResponse struct {
 	Status    string                    `json:"status" example:"success"`
 	Data      []domain.EstadisticasDia  `json:"data"`
@@ -28,7 +28,6 @@ type EstadisticasDiaResponse struct {
 	Version   string                    `json:"version,omitempty" example:"v1.0"`
 }
 
-// EstadisticasSemanaResponse respuesta específica para estadísticas semanales
 type EstadisticasSemanaResponse struct {
 	Status    string                      `json:"status" example:"success"`
 	Data      []domain.EstadisticasSemana `json:"data"`
@@ -36,7 +35,7 @@ type EstadisticasSemanaResponse struct {
 	Version   string                      `json:"version,omitempty" example:"v1.0"`
 }
 
-// EstadisticasMesResponse respuesta específica para estadísticas mensuales
+
 type EstadisticasMesResponse struct {
 	Status    string                   `json:"status" example:"success"`
 	Data      []domain.EstadisticasMes `json:"data"`
@@ -44,7 +43,7 @@ type EstadisticasMesResponse struct {
 	Version   string                   `json:"version,omitempty" example:"v1.0"`
 }
 
-// EstadisticasAnioResponse respuesta específica para estadísticas anuales
+
 type EstadisticasAnioResponse struct {
 	Status    string                    `json:"status" example:"success"`
 	Data      []domain.EstadisticasAnio `json:"data"`
