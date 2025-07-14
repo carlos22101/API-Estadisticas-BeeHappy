@@ -26,7 +26,7 @@ const docTemplate = `{
     "paths": {
         "/estadisticas/anio": {
             "get": {
-                "description": "Retorna las estadísticas calculadas por año para las colmenas y sensores especificados",
+                "description": "Retorna las estadísticas calculadas por año para los sensores y Raspberry Pi especificados",
                 "consumes": [
                     "application/json"
                 ],
@@ -47,11 +47,11 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "minimum": 1,
-                        "type": "integer",
-                        "example": 1,
-                        "description": "ID de la colmena para filtrar las estadísticas",
-                        "name": "colmena_id",
+                        "maxLength": 17,
+                        "type": "string",
+                        "example": "\"b8:27:eb:12:34:56\"",
+                        "description": "MAC del Raspberry Pi para filtrar las estadísticas",
+                        "name": "mac_raspberry",
                         "in": "query"
                     }
                 ],
@@ -94,7 +94,7 @@ const docTemplate = `{
         },
         "/estadisticas/dia": {
             "get": {
-                "description": "Retorna las estadísticas calculadas por día para las colmenas y sensores especificados",
+                "description": "Retorna las estadísticas calculadas por día para los sensores y Raspberry Pi especificados",
                 "consumes": [
                     "application/json"
                 ],
@@ -115,11 +115,10 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "minimum": 1,
-                        "type": "integer",
-                        "example": 1,
-                        "description": "ID de la colmena para filtrar las estadísticas",
-                        "name": "colmena_id",
+                        "maxLength": 17,
+                        "type": "string",
+                        "description": "MAC del Raspberry Pi para filtrar las estadísticas",
+                        "name": "mac_raspberry",
                         "in": "query"
                     }
                 ],
@@ -162,7 +161,7 @@ const docTemplate = `{
         },
         "/estadisticas/mes": {
             "get": {
-                "description": "Retorna las estadísticas calculadas por mes para las colmenas y sensores especificados",
+                "description": "Retorna las estadísticas calculadas por mes para los sensores y Raspberry Pi especificados",
                 "consumes": [
                     "application/json"
                 ],
@@ -183,11 +182,11 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "minimum": 1,
-                        "type": "integer",
-                        "example": 1,
-                        "description": "ID de la colmena para filtrar las estadísticas",
-                        "name": "colmena_id",
+                        "maxLength": 17,
+                        "type": "string",
+                        "example": "\"b8:27:eb:12:34:56\"",
+                        "description": "MAC del Raspberry Pi para filtrar las estadísticas",
+                        "name": "mac_raspberry",
                         "in": "query"
                     }
                 ],
@@ -230,7 +229,7 @@ const docTemplate = `{
         },
         "/estadisticas/semana": {
             "get": {
-                "description": "Retorna las estadísticas calculadas por semana para las colmenas y sensores especificados",
+                "description": "Retorna las estadísticas calculadas por semana para los sensores y Raspberry Pi especificados",
                 "consumes": [
                     "application/json"
                 ],
@@ -251,11 +250,11 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "minimum": 1,
-                        "type": "integer",
-                        "example": 1,
-                        "description": "ID de la colmena para filtrar las estadísticas",
-                        "name": "colmena_id",
+                        "maxLength": 17,
+                        "type": "string",
+                        "example": "\"b8:27:eb:12:34:56\"",
+                        "description": "MAC del Raspberry Pi para filtrar las estadísticas",
+                        "name": "mac_raspberry",
                         "in": "query"
                     }
                 ],
@@ -319,12 +318,11 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "id_colmena": {
-                    "description": "CAMPO AÑADIDO",
-                    "type": "integer"
-                },
                 "id_sensor": {
                     "type": "integer"
+                },
+                "mac_raspberry": {
+                    "type": "string"
                 },
                 "valor_maximo": {
                     "type": "number"
@@ -352,12 +350,11 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "id_colmena": {
-                    "description": "CAMPO AÑADIDO",
-                    "type": "integer"
-                },
                 "id_sensor": {
                     "type": "integer"
+                },
+                "mac_raspberry": {
+                    "type": "string"
                 },
                 "valor_maximo": {
                     "type": "number"
@@ -391,12 +388,11 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "id_colmena": {
-                    "description": "CAMPO AÑADIDO",
-                    "type": "integer"
-                },
                 "id_sensor": {
                     "type": "integer"
+                },
+                "mac_raspberry": {
+                    "type": "string"
                 },
                 "valor_maximo": {
                     "type": "number"
@@ -430,12 +426,11 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "id_colmena": {
-                    "description": "CAMPO AÑADIDO",
-                    "type": "integer"
-                },
                 "id_sensor": {
                     "type": "integer"
+                },
+                "mac_raspberry": {
+                    "type": "string"
                 },
                 "valor_maximo": {
                     "type": "number"

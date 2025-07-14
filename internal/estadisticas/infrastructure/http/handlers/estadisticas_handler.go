@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"net/url"
 	"strconv"
 
 	"estadisticas-api/internal/estadisticas/application/usecases"
@@ -32,21 +33,21 @@ func NewEstadisticasHandler(
 
 // GetEstadisticasDia obtiene estadísticas diarias
 // @Summary Obtener estadísticas diarias
-// @Description Retorna las estadísticas calculadas por día para las colmenas y sensores especificados
+// @Description Retorna las estadísticas calculadas por día para los sensores y Raspberry Pi especificados
 // @Tags Estadísticas Diarias
 // @Accept json
 // @Produce json
 // @Param sensor_id query int false "ID del sensor para filtrar las estadísticas" minimum(1) example(1)
-// @Param colmena_id query int false "ID de la colmena para filtrar las estadísticas" minimum(1) example(1)
+// @Param mac_raspberry query string false "MAC del Raspberry Pi para filtrar las estadísticas" maxlength(17) example("b8:27:eb:12:34:56"
 // @Success 200 {object} response.SuccessResponse{data=[]domain.EstadisticasDia} "Estadísticas diarias obtenidas exitosamente"
 // @Failure 400 {object} response.ErrorResponse "Parámetros de consulta inválidos"
 // @Failure 500 {object} response.ErrorResponse "Error interno del servidor"
 // @Router /estadisticas/dia [get]
 func (h *EstadisticasHandler) GetEstadisticasDia(c *gin.Context) {
 	sensorID := h.getSensorIDFromQuery(c)
-	colmenaID := h.getColmenaIDFromQuery(c)
+	macRaspberry := h.getMacRaspberryFromQuery(c)
 	
-	estadisticas, err := h.getDiaUseCase.Execute(c.Request.Context(), sensorID, colmenaID)
+	estadisticas, err := h.getDiaUseCase.Execute(c.Request.Context(), sensorID, macRaspberry)
 	if err != nil {
 		response.InternalError(c, "Error obteniendo estadísticas diarias")
 		return
@@ -57,21 +58,21 @@ func (h *EstadisticasHandler) GetEstadisticasDia(c *gin.Context) {
 
 // GetEstadisticasSemana obtiene estadísticas semanales
 // @Summary Obtener estadísticas semanales
-// @Description Retorna las estadísticas calculadas por semana para las colmenas y sensores especificados
+// @Description Retorna las estadísticas calculadas por semana para los sensores y Raspberry Pi especificados
 // @Tags Estadísticas Semanales
 // @Accept json
 // @Produce json
 // @Param sensor_id query int false "ID del sensor para filtrar las estadísticas" minimum(1) example(1)
-// @Param colmena_id query int false "ID de la colmena para filtrar las estadísticas" minimum(1) example(1)
+// @Param mac_raspberry query string false "MAC del Raspberry Pi para filtrar las estadísticas" maxlength(17) example("b8:27:eb:12:34:56")
 // @Success 200 {object} response.SuccessResponse{data=[]domain.EstadisticasSemana} "Estadísticas semanales obtenidas exitosamente"
 // @Failure 400 {object} response.ErrorResponse "Parámetros de consulta inválidos"
 // @Failure 500 {object} response.ErrorResponse "Error interno del servidor"
 // @Router /estadisticas/semana [get]
 func (h *EstadisticasHandler) GetEstadisticasSemana(c *gin.Context) {
 	sensorID := h.getSensorIDFromQuery(c)
-	colmenaID := h.getColmenaIDFromQuery(c)
+	macRaspberry := h.getMacRaspberryFromQuery(c)
 	
-	estadisticas, err := h.getSemanaUseCase.Execute(c.Request.Context(), sensorID, colmenaID)
+	estadisticas, err := h.getSemanaUseCase.Execute(c.Request.Context(), sensorID, macRaspberry)
 	if err != nil {
 		response.InternalError(c, "Error obteniendo estadísticas semanales")
 		return
@@ -82,21 +83,21 @@ func (h *EstadisticasHandler) GetEstadisticasSemana(c *gin.Context) {
 
 // GetEstadisticasMes obtiene estadísticas mensuales
 // @Summary Obtener estadísticas mensuales
-// @Description Retorna las estadísticas calculadas por mes para las colmenas y sensores especificados
+// @Description Retorna las estadísticas calculadas por mes para los sensores y Raspberry Pi especificados
 // @Tags Estadísticas Mensuales
 // @Accept json
 // @Produce json
 // @Param sensor_id query int false "ID del sensor para filtrar las estadísticas" minimum(1) example(1)
-// @Param colmena_id query int false "ID de la colmena para filtrar las estadísticas" minimum(1) example(1)
+// @Param mac_raspberry query string false "MAC del Raspberry Pi para filtrar las estadísticas" maxlength(17) example("b8:27:eb:12:34:56")
 // @Success 200 {object} response.SuccessResponse{data=[]domain.EstadisticasMes} "Estadísticas mensuales obtenidas exitosamente"
 // @Failure 400 {object} response.ErrorResponse "Parámetros de consulta inválidos"
 // @Failure 500 {object} response.ErrorResponse "Error interno del servidor"
 // @Router /estadisticas/mes [get]
 func (h *EstadisticasHandler) GetEstadisticasMes(c *gin.Context) {
 	sensorID := h.getSensorIDFromQuery(c)
-	colmenaID := h.getColmenaIDFromQuery(c)
+	macRaspberry := h.getMacRaspberryFromQuery(c)
 	
-	estadisticas, err := h.getMesUseCase.Execute(c.Request.Context(), sensorID, colmenaID)
+	estadisticas, err := h.getMesUseCase.Execute(c.Request.Context(), sensorID, macRaspberry)
 	if err != nil {
 		response.InternalError(c, "Error obteniendo estadísticas mensuales")
 		return
@@ -107,21 +108,21 @@ func (h *EstadisticasHandler) GetEstadisticasMes(c *gin.Context) {
 
 // GetEstadisticasAnio obtiene estadísticas anuales
 // @Summary Obtener estadísticas anuales
-// @Description Retorna las estadísticas calculadas por año para las colmenas y sensores especificados
+// @Description Retorna las estadísticas calculadas por año para los sensores y Raspberry Pi especificados
 // @Tags Estadísticas Anuales
 // @Accept json
 // @Produce json
 // @Param sensor_id query int false "ID del sensor para filtrar las estadísticas" minimum(1) example(1)
-// @Param colmena_id query int false "ID de la colmena para filtrar las estadísticas" minimum(1) example(1)
+// @Param mac_raspberry query string false "MAC del Raspberry Pi para filtrar las estadísticas" maxlength(17) example("b8:27:eb:12:34:56")
 // @Success 200 {object} response.SuccessResponse{data=[]domain.EstadisticasAnio} "Estadísticas anuales obtenidas exitosamente"
 // @Failure 400 {object} response.ErrorResponse "Parámetros de consulta inválidos"
 // @Failure 500 {object} response.ErrorResponse "Error interno del servidor"
 // @Router /estadisticas/anio [get]
 func (h *EstadisticasHandler) GetEstadisticasAnio(c *gin.Context) {
 	sensorID := h.getSensorIDFromQuery(c)
-	colmenaID := h.getColmenaIDFromQuery(c)
+	macRaspberry := h.getMacRaspberryFromQuery(c)
 	
-	estadisticas, err := h.getAnioUseCase.Execute(c.Request.Context(), sensorID, colmenaID)
+	estadisticas, err := h.getAnioUseCase.Execute(c.Request.Context(), sensorID, macRaspberry)
 	if err != nil {
 		response.InternalError(c, "Error obteniendo estadísticas anuales")
 		return
@@ -144,16 +145,22 @@ func (h *EstadisticasHandler) getSensorIDFromQuery(c *gin.Context) *int {
 	return &sensorID
 }
 
-func (h *EstadisticasHandler) getColmenaIDFromQuery(c *gin.Context) *int {
-	colmenaIDStr := c.Query("colmena_id")
-	if colmenaIDStr == "" {
+func (h *EstadisticasHandler) getMacRaspberryFromQuery(c *gin.Context) *string {
+	macRaspberryStr := c.Query("mac_raspberry")
+	if macRaspberryStr == "" {
 		return nil
 	}
 
-	colmenaID, err := strconv.Atoi(colmenaIDStr)
+	
+	if len(macRaspberryStr) > 17 {
+		return nil
+	}
+
+	
+	decodedMac, err := url.QueryUnescape(macRaspberryStr)
 	if err != nil {
-		return nil
+		return &macRaspberryStr 
 	}
 
-	return &colmenaID
+	return &decodedMac
 }

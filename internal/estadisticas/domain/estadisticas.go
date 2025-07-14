@@ -4,7 +4,7 @@ import "time"
 
 type EstadisticasDia struct {
 	ID               int       `json:"id" db:"id"`
-	IDColmena        int       `json:"id_colmena" db:"id_colmena"`        // CAMPO AÑADIDO
+	MacRaspberry     string    `json:"mac_raspberry" db:"mac_raspberry"`     
 	IDSensor         int       `json:"id_sensor" db:"id_sensor"`
 	Fecha            time.Time `json:"fecha" db:"fecha"`
 	ValorMinimo      float64   `json:"valor_minimo" db:"valor_minimo"`
@@ -16,7 +16,7 @@ type EstadisticasDia struct {
 
 type EstadisticasSemana struct {
 	ID               int       `json:"id" db:"id"`
-	IDColmena        int       `json:"id_colmena" db:"id_colmena"`        // CAMPO AÑADIDO
+	MacRaspberry     string    `json:"mac_raspberry" db:"mac_raspberry"`      
 	IDSensor         int       `json:"id_sensor" db:"id_sensor"`
 	AnoSemana        string    `json:"ano_semana" db:"ano_semana"`
 	FechaInicio      time.Time `json:"fecha_inicio" db:"fecha_inicio"`
@@ -30,7 +30,7 @@ type EstadisticasSemana struct {
 
 type EstadisticasMes struct {
 	ID               int       `json:"id" db:"id"`
-	IDColmena        int       `json:"id_colmena" db:"id_colmena"`        // CAMPO AÑADIDO
+	MacRaspberry     string    `json:"mac_raspberry" db:"mac_raspberry"`      
 	IDSensor         int       `json:"id_sensor" db:"id_sensor"`
 	AnoMes           string    `json:"ano_mes" db:"ano_mes"`
 	FechaInicio      time.Time `json:"fecha_inicio" db:"fecha_inicio"`
@@ -44,7 +44,7 @@ type EstadisticasMes struct {
 
 type EstadisticasAnio struct {
 	ID               int       `json:"id" db:"id"`
-	IDColmena        int       `json:"id_colmena" db:"id_colmena"`        // CAMPO AÑADIDO
+	MacRaspberry     string    `json:"mac_raspberry" db:"mac_raspberry"`      
 	IDSensor         int       `json:"id_sensor" db:"id_sensor"`
 	Ano              int       `json:"ano" db:"ano"`
 	FechaInicio      time.Time `json:"fecha_inicio" db:"fecha_inicio"`

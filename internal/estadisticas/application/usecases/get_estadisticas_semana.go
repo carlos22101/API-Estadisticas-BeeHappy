@@ -13,6 +13,6 @@ func NewGetEstadisticasSemanaUseCase(repo domain.EstadisticasRepository) *GetEst
 	return &GetEstadisticasSemanaUseCase{repo: repo}
 }
 
-func (uc *GetEstadisticasSemanaUseCase) Execute(ctx context.Context, sensorID *int, colmenaID *int) ([]domain.EstadisticasSemana, error) {
-	return uc.repo.GetEstadisticasSemana(ctx, sensorID, colmenaID)
+func (uc *GetEstadisticasSemanaUseCase) Execute(ctx context.Context, sensorID *int, macRaspberry *string) ([]domain.EstadisticasSemana, error) {
+	return uc.repo.GetEstadisticasSemana(ctx, sensorID, macRaspberry)
 }
